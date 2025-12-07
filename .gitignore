@@ -140,3 +140,4 @@ vite.config.ts.timestamp-*
 
 # Dependencies
 /node_modules
+/src/test.js

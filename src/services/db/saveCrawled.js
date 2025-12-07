@@ -2,6 +2,7 @@ import Retailer from "../../models/Retailer.js";
 import Product from "../../models/Product.js";
 import PriceHistory from "../../models/PriceHistory.js";
 import slug from "slug";
+import { sendTeleGram } from "../../utils/sendNotification.js";
 
 export async function saveCrawledItems(items = []) {
   if (!Array.isArray(items) || items.length === 0) {
@@ -40,11 +41,11 @@ export async function saveCrawledItems(items = []) {
 
       // Thay đổi giá cũ nếu giá thay đổi
       if (existProduct) {
-        //Nếu giá cũ khác giá mới thì lưu lại 
-        if(existProduct.currentPrice !== item.price){
-          productData.lastPrice = existProduct.currentPrice
-        }else{
-          productData.lastPrice = existProduct.lastPrice
+        //Nếu giá cũ khác giá mới thì lưu lại
+        if (existProduct.currentPrice !== item.price) {
+          productData.lastPrice = existProduct.currentPrice;
+        } else {
+          productData.lastPrice = existProduct.lastPrice;
         }
       } else {
         productData.lastPrice = item.price;
@@ -74,6 +75,7 @@ export async function saveCrawledItems(items = []) {
       savedCount++;
     } catch (err) {
       console.error(`⚠️ Lỗi khi lưu item "${item.title}":`, err.message);
+      sendTeleGram(`⚠️ Lỗi khi lưu item "${item.title}": ${err.message}`);
     }
   }
 

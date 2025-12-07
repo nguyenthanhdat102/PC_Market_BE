@@ -1,6 +1,7 @@
 import Product from "../models/Product.js";
 import Retailer from "../models/Retailer.js";
 import PriceHistory from "../models/PriceHistory.js";
+import { sendTeleGram } from "../utils/sendNotification.js";
 
 // GET /api/products?cursor=:cursor&limit=:limit
 export const getAllProducts = async (req, res) => {
@@ -68,7 +69,8 @@ export const getAllProducts = async (req, res) => {
       products,
     });
   } catch (err) {
-    console.error("❌ Lỗi hàm getAllProducts:", err);
+    console.error("❌ Lỗi hàm getAllProducts:", err.message);
+    sendTeleGram(`❌ Lỗi hàm getAllProducts: ${err.message}`);
     res.status(500).json({ error: "Lỗi máy chủ" });
   }
 };
@@ -80,6 +82,7 @@ export const getProduct = async (req, res) => {
     res.json(product);
   } catch (err) {
     console.error("❌ Lỗi hàm getProduct:", err);
+    sendTeleGram(`❌ Lỗi hàm getProduct: ${err.message}`);
     res.status(500).json({ error: "Lỗi máy chủ" });
   }
 };

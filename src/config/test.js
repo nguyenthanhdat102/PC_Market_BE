@@ -7,7 +7,7 @@ import slug from "slug";
 
 dotenv.config();
 
-const MONGO_URI = process.env.MONGODB_URI;
+const MONGO_URI = process.env.MONGO_URI;
 
 // Seed dữ liệu retailer ban đầu
 const seedRetailers = async () => {

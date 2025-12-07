@@ -8,8 +8,8 @@ export default {
     { name: "VGA", path: `${baseUrl}/vga-card-man-hinh` },
     { name: "CPU", path: `${baseUrl}/cpu-bo-vi-xu-ly` },
     { name: "RAM", path: `${baseUrl}/ram` },
-    // { name: "MAIN", path: `${baseUrl}/mainboard-bo-mach-chu` },
-    // { name: "PSU", path: `${baseUrl}/psu-nguon-may-tinh` },
+    { name: "MAIN", path: `${baseUrl}/mainboard-bo-mach-chu` },
+    { name: "PSU", path: `${baseUrl}/psu-nguon-may-tinh` },
     // { name: "SSD", path: `${baseUrl}/o-cung-ssd` },
     // { name: "HDD", path: `${baseUrl}/o-cung-hdd` },
   ],
@@ -24,7 +24,7 @@ export default {
   pagination: {
     type: "page",
     param: "?page=",
-    maxPages: 100,
+    maxPages: 1,
   },
 };
 

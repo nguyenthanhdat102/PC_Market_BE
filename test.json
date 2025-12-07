@@ -1,0 +1,30 @@
+{
+  "product": {
+    "_id": "pd01",
+    "title": "Card màn hình Colorful GeForce RTX 5060 Battle AX DUO 8GB-V (Colorful GeForce RTX 5060 NB DUO 8GB-V)",
+    "slug": "",
+    "specs": {
+      "brand": "ZOTAC",
+      "chip": "RTX 5060",
+      "vram": "8GB"
+    },
+    "url": "https://kccshop.vn/card-man-hinh-colorful-geforce-rtx-5060-battle-ax-duo-8gb-v-card-man-hinh-colorful-geforce-rtx-5060-nb-duo-8gb-v/",
+    "imgUrl": "https://kccshop.vn/media/product/250-12802-card-m--n-h--nh-colorful-geforce-rtx-5060-nb-duo-8gb-v_3_main.jpeg",
+    "currentPrice": 8990000
+  },
+
+  "productHistory": {
+    "_id": "pdh01",
+    "productId": "pd01",
+    "price": 8990000,
+    "date": "null"
+  },
+
+  "retailter": {
+    "_id": "rt01",
+    "slug": "kcc-shop",
+    "name": "KCC Shop",
+    "baseUrl": "https://kccshop.vn",
+    "logoUrl": "https://kccshop.vn/media/lib/18-02-2025/logowhite-dfvefb.png"
+  }
+}

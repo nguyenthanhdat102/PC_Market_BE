@@ -24,6 +24,6 @@ export default {
   pagination: {
     type: "page",
     param: "/?page=",
-    maxPages: 100,
+    maxPages: 1,
   },
 };

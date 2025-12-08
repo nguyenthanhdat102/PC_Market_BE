@@ -32,7 +32,6 @@ export const priceTracking = async (req, res) => {
     });
   } catch (err) {
     console.error("Price tracking error:", err);
-    sendTeleGram(`❌ Price tracking error: ${err.message}`);
     res.status(500).json({ message: "Server error" });
   }
 };

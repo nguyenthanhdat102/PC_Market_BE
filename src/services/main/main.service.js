@@ -1,7 +1,9 @@
-import puppeteer from "puppeteer";
+import puppeteerCore from "puppeteer-core";
+import chromium from "@sparticuz/chromium-min";
 import pLimit from "p-limit";
 import { crawlRetailer } from "../index.js";
-
+import dotenv from 'dotenv';
+dotenv.config()
 import ncpc from "../retailers/nc.config.js";
 import kccshop from "../retailers/kccshop.config.js";
 import pcm from "../retailers/nc.config.js";
@@ -44,9 +46,10 @@ class mainService {
   async process() {
     console.log("🚀 Khởi động browser...");
     try {
-      const browser = await puppeteer.launch({
+      const browser = await puppeteerCore.launch({
+        args: chromium.args,
+        executablePath: await chromium.executablePath(process.env.REMOTE_EXE_PATH),
         headless: true,
-        defaultViewport: { width: 1366, height: 768 },
       });
 
       // Giới hạn số tab chạy song song

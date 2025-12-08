@@ -1,7 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config()
 import mainService from '../services/main/main.service.js';
-
 import productRoutes from "./productRouter.js";
 import trackingRoutes from "./trackingRouter.js";
 import telegramRoutes from "./telegramRouter.js";

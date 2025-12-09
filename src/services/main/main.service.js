@@ -10,7 +10,7 @@ import kccshop from "../retailers/kccshop.config.js";
 import pcm from "../retailers/nc.config.js";
 import telegrambotService from "../telegram/telegrambot.service.js";
 
-const retailers = [ncpc];
+const retailers = [ncpc, kccshop, pcm];
 
 class mainService {
   async main() {

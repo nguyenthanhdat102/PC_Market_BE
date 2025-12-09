@@ -1,4 +1,5 @@
 import puppeteerCore from "puppeteer-core";
+import puppeteer from "puppeteer";
 import chromium from "@sparticuz/chromium-min";
 import pLimit from "p-limit";
 import { crawlRetailer } from "../index.js";
@@ -9,10 +10,10 @@ import kccshop from "../retailers/kccshop.config.js";
 import pcm from "../retailers/nc.config.js";
 import telegrambotService from "../telegram/telegrambot.service.js";
 
-const retailers = [ncpc, kccshop, pcm];
+const retailers = [ncpc];
 
 class mainService {
-  async main() {  
+  async main() {
     const startTime = Date.now();
     try {
       await telegrambotService.notifyStart();
@@ -46,13 +47,20 @@ class mainService {
   async process() {
     console.log("🚀 Khởi động browser...");
     try {
-      const browser = await puppeteerCore.launch({
-        args: chromium.args,
-        executablePath: await chromium.executablePath(
-          process.env.REMOTE_EXE_PATH
-        ),
-        headless: true,
-      });
+      let browser;
+      if (process.env.NODE_ENV !== "development") {
+        browser = await puppeteerCore.launch({
+          args: chromium.args,
+          executablePath: await chromium.executablePath(
+            process.env.REMOTE_EXE_PATH
+          ),
+          headless: true,
+        });
+      } else {
+        browser = await puppeteer.launch({
+          headless: true,
+        });
+      }
 
       // Giới hạn số tab chạy song song
       const limit = pLimit(3);
@@ -63,7 +71,6 @@ class mainService {
           limit(async () => {
             const page = await browser.newPage();
             try {
-              await telegrambotService.notifyAdmin(`- ${retailer.retailerName}`)
               return await crawlRetailer(page, retailer);
             } catch (err) {
               console.error(

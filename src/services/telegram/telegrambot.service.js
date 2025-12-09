@@ -103,6 +103,26 @@ class telegramService {
     return this.notifyAdmin(text);
   }
 
+  // Tạo menu commands
+  async setCommands() {
+    try {
+      const commands = [
+        { command: 'start', description: '🚀 Khởi động bot' },
+        { command: 'run', description: '▶️ Chạy hàm main() ngay' },
+        { command: 'status', description: '📊 Xem trạng thái hệ thống' },
+        { command: 'help', description: '❓ Danh sách lệnh' }
+      ];
+      
+      const response = await axios.post(`${TELEGRAM_API}/setMyCommands`, {
+        commands: commands
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Set commands error:', error.response?.data || error.message);
+      throw error;
+    }
+  }
+
   async setWebhook(webhookUrl) {
     try {
       const response = await axios.post(`${TELEGRAM_API}/setWebhook`, {

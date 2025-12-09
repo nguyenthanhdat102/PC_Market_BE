@@ -1,10 +1,22 @@
 import telegramService from "../services/telegram/telegrambot.service.js";
+import mainService from "../services/main/main.service.js";
 
 class TelegramControler {
+  // khởi tạo contructor fix lỗi this không trỏ về TelegramControler
+  constructor() {
+    this.handleWebhook = this.handleWebhook.bind(this);
+    this.handleStartCommand = this.handleStartCommand.bind(this);
+    this.handleRunCommand = this.handleRunCommand.bind(this);
+    this.handleStatusCommand = this.handleStatusCommand.bind(this);
+    this.handleHelpCommand = this.handleHelpCommand.bind(this);
+    this.setupCommands = this.setupCommands.bind(this);
+    this.setupWebhook = this.setupWebhook.bind(this);
+    this.getWebhookInfo = this.getWebhookInfo.bind(this);
+  }
+
   async handleWebhook(req, res) {
     try {
       const { message } = req.body;
-      
       if (message?.text) {
         const chatId = message.chat.id;
         const text = message.text.trim();
@@ -50,7 +62,7 @@ class TelegramControler {
 
       return res.status(200).json({ ok: true });
     } catch (error) {
-      console.error("Webhook handler error:", error);
+      console.error("Webhook handler error:", error.message);
       return res.status(200).json({ ok: true });
     }
   }
@@ -114,6 +126,23 @@ class TelegramControler {
     );
   }
 
+  async setupCommands(req, res) {
+    try {
+      const result = await telegramService.setCommands();
+      
+      return res.json({
+        success: true,
+        message: 'Bot commands menu đã được cập nhật',
+        result: result
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        error: error.message
+      });
+    }
+  }
+
   async setupWebhook(req, res) {
     try {
       const baseUrl = process.env.PUBLIC_URL
@@ -122,11 +151,14 @@ class TelegramControler {
 
       const webhookUrl = `${baseUrl}/api/telegram/webhook`;
       const result = await telegramService.setWebhook(webhookUrl);
+      // Set bot commands menu
+      const commandsResult = await telegramService.setCommands();
 
       return res.json({
         success: true,
         webhook_url: webhookUrl,
         result: result,
+        commands_result: commandsResult
       });
     } catch (error) {
       return res.status(500).json({

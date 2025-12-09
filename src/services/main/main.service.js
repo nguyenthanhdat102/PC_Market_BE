@@ -2,8 +2,8 @@ import puppeteerCore from "puppeteer-core";
 import chromium from "@sparticuz/chromium-min";
 import pLimit from "p-limit";
 import { crawlRetailer } from "../index.js";
-import dotenv from 'dotenv';
-dotenv.config()
+import dotenv from "dotenv";
+dotenv.config();
 import ncpc from "../retailers/nc.config.js";
 import kccshop from "../retailers/kccshop.config.js";
 import pcm from "../retailers/nc.config.js";
@@ -12,7 +12,7 @@ import telegrambotService from "../telegram/telegrambot.service.js";
 const retailers = [ncpc, kccshop, pcm];
 
 class mainService {
-  async main() {
+  async main() {  
     const startTime = Date.now();
     try {
       await telegrambotService.notifyStart();
@@ -25,7 +25,7 @@ class mainService {
       await telegrambotService.notifySuccess({
         duration: duration,
         processed: results.total || 0,
-        success: true || 0,
+        success: true,
         failed: results.failed || 0,
         message: results.message || "Xử lý hoàn tất",
       });
@@ -48,7 +48,9 @@ class mainService {
     try {
       const browser = await puppeteerCore.launch({
         args: chromium.args,
-        executablePath: await chromium.executablePath(process.env.REMOTE_EXE_PATH),
+        executablePath: await chromium.executablePath(
+          process.env.REMOTE_EXE_PATH
+        ),
         headless: true,
       });
 

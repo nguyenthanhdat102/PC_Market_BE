@@ -63,6 +63,7 @@ class mainService {
           limit(async () => {
             const page = await browser.newPage();
             try {
+              await telegrambotService.notifyAdmin(`- ${retailer.retailerName}`)
               return await crawlRetailer(page, retailer);
             } catch (err) {
               console.error(

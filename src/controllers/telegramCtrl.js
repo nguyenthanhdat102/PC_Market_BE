@@ -81,8 +81,6 @@ class TelegramControler {
 
   async handleRunCommand(chatId) {
     try {
-      await telegramService.sendMessage(chatId, "⏳ Đang chạy hàm main()...");
-
       // Chạy hàm main trong background
       mainService.main().catch((err) => {
         console.error("Main service error:", err);

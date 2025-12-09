@@ -1,3 +1,6 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
 const baseUrl = "https://nguyencongpc.vn";
 
 export default {
@@ -24,7 +27,7 @@ export default {
   pagination: {
     type: "page",
     param: "?page=",
-    maxPages: 1,
+    maxPages: parseInt(process.env.PAGE_LIMIT),
   },
 };
 

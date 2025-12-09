@@ -24,7 +24,7 @@ export default function (app) {
     });
   });
   //test cron
-  app.get(`api/test-cron`, async (req, res) => {
+  app.get(`${API_ROUTE}/test-cron`, async (req, res) => {
     await mainService.main();
     res.json({ success: true, message: "Test cron executed" });
   });

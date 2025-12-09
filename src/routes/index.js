@@ -1,12 +1,12 @@
-import dotenv from 'dotenv';
-dotenv.config()
-import mainService from '../services/main/main.service.js';
+import dotenv from "dotenv";
+dotenv.config();
+import mainService from "../services/main/main.service.js";
 import productRoutes from "./productRouter.js";
 import trackingRoutes from "./trackingRouter.js";
 import telegramRoutes from "./telegramRouter.js";
 import cronRoutes from "./cronRouter.js";
 
-const API_ROUTE = "/api"
+const API_ROUTE = "/api";
 
 export default function (app) {
   app.use(`${API_ROUTE}/v1`, productRoutes);
@@ -23,12 +23,9 @@ export default function (app) {
       time: new Date().toISOString(),
     });
   });
-
-  // Chỉ có ở development
-  if (process.env.NODE_ENV === "development") {
-    app.get(`api/test-cron`, async (req, res) => {
-      await mainService.main();
-      res.json({ success: true, message: "Test cron executed" });
-    });
-  }
+  //test cron
+  app.get(`api/test-cron`, async (req, res) => {
+    await mainService.main();
+    res.json({ success: true, message: "Test cron executed" });
+  });
 }

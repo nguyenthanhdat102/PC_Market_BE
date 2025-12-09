@@ -7,7 +7,7 @@ class CronController {
       console.log("🕐 Cron job triggered");
 
       // Chạy main function trong background
-      mainService.main().catch((err) => {
+      await mainService.main().catch((err) => {
         console.error("Scheduled task error:", err);
       });
 
